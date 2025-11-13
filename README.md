@@ -1,10 +1,10 @@
-🪶 #Nutram – Plataforma de Relatos
+# Nutram – Plataforma de Relatos
 
 Aplicación web en Django para crear, compartir y gestionar relatos con identidad cultural mapuche.
 
 ---
 
-📌 ##Descripción del Proyecto
+## Descripción del Proyecto
 
 Nutram es una plataforma desarrollada en Django que permite a usuarios compartir relatos, leer historias de otros y mantener una comunidad activa.
 El proyecto incorpora diseños inspirados en la cultura mapuche, priorizando una estética limpia, colores tradicionales y una experiencia accesible.
@@ -13,8 +13,8 @@ La aplicación incluye autenticación de usuarios, CRUD de relatos, un sistema d
 
 ---
 
-🚀 ##Características Principales
-🧑‍💻 ###Usuarios
+## Características Principales
+### Usuarios
 
 Registro
 
@@ -24,7 +24,7 @@ Cierre de sesión
 
 Acceso restringido a funciones protegidas (crear, editar, eliminar relatos)
 
-📚 ###Relatos (CRUD)
+### Relatos (CRUD)
 
 Listado de relatos
 
@@ -36,7 +36,7 @@ Crear nuevos relatos
 
 Editar o eliminar relatos (solo autor / usuarios autenticados)
 
-🎨###Diseño y Estilo
+### Diseño y Estilo
 
 Colores mapuche (azul, verde, rojo, amarillo, blanco, negro)
 
@@ -48,7 +48,7 @@ Tipografía Poppins integrada
 
 Layout adaptable (mobile first)
 
-📂 ###Front-end
+### Front-end
 
 Bootstrap 5
 
