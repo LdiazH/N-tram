@@ -1,0 +1,141 @@
+/* Paleta de colores inspirada en la bandera mapuche */
+:root {
+  --mapuche-negro: #000000;
+  --mapuche-azul: #0055A4;
+  --mapuche-verde: #2E8B57;
+  --mapuche-rojo: #D62828;
+  --mapuche-amarillo: #FFCC00;
+  --mapuche-blanco: #FFFFFF;
+}
+
+/* Estilo base */
+body {
+  background-color: var(--mapuche-blanco);
+  color: var(--mapuche-negro);
+  font-family: "Poppins", sans-serif;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+}
+
+/* Mantener footer abajo */
+main {
+  flex: 1;
+}
+
+/* Navbar */
+.navbar {
+  background: linear-gradient(90deg, var(--mapuche-azul), var(--mapuche-verde));
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  position: sticky; /* se mantiene visible */
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar-brand, 
+.nav-link {
+  color: var(--mapuche-blanco) !important;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: var(--mapuche-amarillo) !important;
+}
+
+/* Dropdown items */
+.dropdown-item.active,
+.dropdown-item:active {
+  background-color: var(--mapuche-verde);
+  color: var(--mapuche-blanco);
+}
+
+.dropdown-item:hover {
+  background-color: var(--mapuche-azul);
+  color: var(--mapuche-blanco);
+}
+
+/* Card headers para formularios */
+.card-header-form {
+  background: linear-gradient(90deg, var(--mapuche-azul), var(--mapuche-rojo));
+  color: white;
+  text-align: center;
+  padding: 1rem;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* Botones */
+.btn-primary {
+  background-color: var(--mapuche-rojo);
+  border-color: var(--mapuche-rojo);
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: var(--mapuche-amarillo);
+  border-color: var(--mapuche-amarillo);
+  color: var(--mapuche-negro);
+  transform: scale(1.03);
+}
+
+/* Footer */
+footer {
+  background-color: var(--mapuche-negro);
+  color: var(--mapuche-blanco);
+  padding: 1rem;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+/* Jumbotron */
+
+.jumbotron {
+  position: relative;
+  background-image: url('https://upload.wikimedia.org/wikipedia/commons/6/65/Mapuche_Flag_represented_by_actual_elements.png'); /* Cambia la ruta a tu imagen */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: var(--mapuche-blanco);
+  padding: 8rem 2rem;
+  border-bottom: 5px solid var(--mapuche-amarillo);
+  overflow: hidden;
+}
+
+/* Capa oscura para contraste del texto */
+.jumbotron .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.55); /* oscurece un poco la imagen */
+  z-index: 0;
+}
+
+/* Texto y botones sobre la capa */
+.jumbotron .container {
+  position: relative;
+  z-index: 1;
+}
+
+.jumbotron h1, 
+.jumbotron p {
+  color: var(--mapuche-blanco);
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+/* Botón adaptado al tema */
+.jumbotron .btn-primary {
+  background-color: var(--mapuche-rojo);
+  border-color: var(--mapuche-rojo);
+}
+
+.jumbotron .btn-primary:hover {
+  background-color: var(--mapuche-amarillo);
+  color: var(--mapuche-negro);
+}

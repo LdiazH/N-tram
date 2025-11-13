@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title %}Registro exitoso{% endblock %}
+
+{% block content %}
+<div>
+<h2>Felicidades</h2>
+<p>Has creado tu nueva cuenta!. Logueate de inmediato.</p>
+<a href="{% url 'login' %}" class="btn btn-success">Ir a login</a>
+</div>
+{% endblock %}

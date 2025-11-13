@@ -1,0 +1,75 @@
+# ============================
+#  ENTORNO VIRTUAL
+# ============================
+venv/
+env/
+.venv/
+ENV/
+env.bak/
+
+# ============================
+#  ARCHIVOS DE PYTHON
+# ============================
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pdb
+*.pyc
+*.pyo
+*.pyd
+
+# ============================
+#  DJANGO
+# ============================
+# Archivos de migración (si quieres ignorarlos, pero NO es obligatorio)
+*/migrations/* 
+!*/migrations/__init__.py
+
+# Archivos sensibles
+*.env
+.env*
+
+# Base de datos SQLite
+db.sqlite3
+db.sqlite3-journal
+
+# Cache de Django
+django_cache/
+
+# ============================
+#  LOGS
+# ============================
+*.log
+
+# ============================
+#  CONFIGURACIONES DEL IDE
+# ============================
+# VSCode
+.vscode/
+
+# PyCharm / JetBrains
+.idea/
+*.iml
+
+# ============================
+#  SISTEMA OPERATIVO
+# ============================
+# MacOS
+.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# ============================
+#  ESTÁTICOS Y MEDIA
+# ============================
+# Si generas archivos dentro de media/
+media/
+
+# Archivos generados por collectstatic
+staticfiles/
+static_root/
+static_cdn/

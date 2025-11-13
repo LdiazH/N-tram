@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<div class="container mt-5">
+  <div class="card shadow-lg border-0 rounded-4">
+    <div class="card-body p-4">
+      <!-- Título del relato -->
+      <h2 class="card-title mb-3">{{ relato.titulo }}</h2>
+
+      <!-- Información del autor y fecha -->
+      <p class="text-muted mb-4">
+        Por: <strong>{{ relato.autor.username }}</strong> · 
+        Creado {{ relato.created_at|date:"d/m/Y H:i" }} |
+        Actualizado {{ relato.updated_at|date:"d/m/Y H:i" }}
+      </p>
+
+      <!-- Contenido del relato -->
+      <div class="card-text fs-5" style="white-space: pre-line;">
+        {{ relato.contenido }}
+      </div>
+
+      <hr class="my-4">
+
+      <!-- Botones de acción -->
+      <div class="d-flex justify-content-between">
+        <a href="{% url 'relatos' %}" class="btn btn-outline-secondary">
+          ← Volver a la lista
+        </a>
+
+        {% if user.is_authenticated and user == relato.autor %}
+        <div>
+          <a href="{% url 'editar_relato' relato.pk %}" class="btn btn-warning me-2">
+            <i class="bi bi-pencil"></i> Editar
+          </a>
+          <a href="{% url 'eliminar_relato' relato.pk %}" class="btn btn-danger">
+            <i class="bi bi-trash"></i> Eliminar
+          </a>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

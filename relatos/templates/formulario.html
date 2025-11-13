@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container mt-5">
+  <div class="card shadow border-0">
+    <div class="card-header card-header-form text-white text-center py-3" >
+      <h3 class="mb-0">
+        {% if form.instance.pk %}Editar Relato{% else %}Nuevo Relato{% endif %}
+      </h3>
+    </div>
+
+    <div class="card-body bg-light">
+      <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <div class="text-end">
+          <a href="{% url 'relatos' %}" class="btn btn-secondary">Cancelar</a>
+          <button type="submit" class="btn btn-success">
+            {% if form.instance.pk %}Actualizar{% else %}Publicar{% endif %}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock  %}
