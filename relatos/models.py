@@ -22,6 +22,9 @@ class Relato(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True) 
     
+    likes = models.ManyToManyField(User, blank=True, related_name='likes')
+    dislikes = models.ManyToManyField(User, blank=True, related_name='dislikes')
+    
     def save(self, *args, **kwargs):
         # titulo en mayusculas
         if self.titulo:
@@ -34,3 +37,15 @@ class Relato(models.Model):
     def __str__(self):
         return self.titulo
     
+    
+class Comentario(models.Model):
+    contenido = models.TextField()
+    fecha = models.DateTimeField(auto_now_add=True)
+    relato = models.ForeignKey(Relato, on_delete=models.CASCADE, related_name='comentarios')
+    autor = models.ForeignKey(User, on_delete = models.CASCADE)
+
+    class Meta:
+        ordering = ['-fecha'] #Por defecto siempre me va a ordenar los más recientes primero
+
+    def __str__(self):
+        return self.contenido

@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from .models import Relato
+from .models import Relato, Comentario
 
 class RelatoForm(forms.ModelForm):
     class Meta:
@@ -14,4 +14,12 @@ class RelatoForm(forms.ModelForm):
         }
 
 
+class ComentarioForm(forms.ModelForm):
+    class Meta:
+        model = Comentario
+        fields = ['contenido']
+        widgets = {
+            'contenido': forms.Textarea(attrs={'class': 'form-control', 'rows': 5}),
+             
+        }
         

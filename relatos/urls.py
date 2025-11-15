@@ -11,5 +11,9 @@ urlpatterns = [
     path('relato/<int:pk>/', RelatoDetailView.as_view(), name='detalle_relato'),
     path('relato/<int:pk>/editar/', RelatoUpdateView.as_view(), name='editar_relato'),
     path('relato/<int:pk>/eliminar/', RelatoDeleteView.as_view(), name='eliminar_relato'),
+    path("relato/<int:pk>/", RelatoDetailView.as_view(), name="detalle_relato"),
+    
+    path('like/<int:pk>/', AddLike.as_view(), name='add_like'),
+    path('dislike/<int:pk>/', AddDislike.as_view(), name='add_dislike'),
     
 ]

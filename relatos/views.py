@@ -1,12 +1,12 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-
+from django.views import View 
 from django.views.generic import ListView, CreateView, DetailView, TemplateView, DeleteView, UpdateView
 
-from .forms import RelatoForm
+from .forms import RelatoForm, ComentarioForm
 from django.urls import reverse_lazy
 
-#importacion del formualrio de registro
+from django.http import HttpResponse, HttpResponseRedirect
 
 
 #importacion del modelo Relato y categoria
@@ -67,6 +67,27 @@ class RelatoDetailView(DetailView):
     model = Relato
     template_name = "detalle_relato.html"
     context_object_name = "relato"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["comentario_form"] = ComentarioForm()
+        return context
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()   # Relato actual
+        form = ComentarioForm(request.POST)
+
+        if form.is_valid():
+            comentario = form.save(commit=False)
+            comentario.autor = request.user
+            comentario.relato = self.object
+            comentario.save()
+            return redirect("detalle_relato", pk=self.object.pk)  
+
+        # Si el form es inválido, re-renderizamos con errores
+        context = self.get_context_data()
+        context["comentario_form"] = form
+        return self.render_to_response(context)
     
 #  Editar relato 
 class RelatoUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
@@ -89,3 +110,44 @@ class RelatoDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     def test_func(self):
         relato = self.get_object()
         return self.request.user == relato.autor
+    
+    
+class AddLike(LoginRequiredMixin, View):
+    def post(self, request, pk, *args, **kwargs):
+        relato = Relato.objects.get(pk=pk)
+        user = request.user
+
+        # Si tiene dislike, se lo quitamos
+        if relato.dislikes.filter(id=user.id).exists():
+            relato.dislikes.remove(user)
+
+        # Lógica de like: toggle
+        if relato.likes.filter(id=user.id).exists():
+            # Ya dio like, se remueve
+            relato.likes.remove(user)
+        else:
+            # No hay like, se agrega
+            relato.likes.add(user)
+
+        # redireccion
+        next_url = request.POST.get('next', '/')
+        return HttpResponseRedirect(next_url)
+        
+            
+class AddDislike(LoginRequiredMixin, View):
+    def post(self, request, pk, *args, **kwargs):
+        relato = Relato.objects.get(pk=pk)
+        user = request.user
+
+        # Si tiene like, se lo quitamos
+        if relato.likes.filter(id=user.id).exists():
+            relato.likes.remove(user)
+
+        # Toggle de dislike
+        if relato.dislikes.filter(id=user.id).exists():
+            relato.dislikes.remove(user)
+        else:
+            relato.dislikes.add(user)
+
+        next_url = request.POST.get('next', '/')
+        return HttpResponseRedirect(next_url)
