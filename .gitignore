@@ -23,8 +23,6 @@ __pycache__/
 #  DJANGO
 # ============================
 # Archivos de migración (si quieres ignorarlos, pero NO es obligatorio)
-*/migrations/* 
-!*/migrations/__init__.py
 
 # Archivos sensibles
 *.env
