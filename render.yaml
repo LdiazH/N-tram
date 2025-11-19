@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: nutram
+    env: python
+    region: oregon
+    plan: free
+    buildCommand: |
+      pip install -r requirements.txt
+      python manage.py collectstatic --noinput
+    startCommand: gunicorn nutram.wsgi:application
