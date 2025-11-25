@@ -12,8 +12,10 @@ urlpatterns = [
     path('relato/<int:pk>/editar/', RelatoUpdateView.as_view(), name='editar_relato'),
     path('relato/<int:pk>/eliminar/', RelatoDeleteView.as_view(), name='eliminar_relato'),
     
-    
+    #likes view
     path('like/<int:pk>/', AddLike.as_view(), name='add_like'),
     path('dislike/<int:pk>/', AddDislike.as_view(), name='add_dislike'),
+    #vista temporal
+    path("crear-categorias/", crear_categorias),
     
 ]
