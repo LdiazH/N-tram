@@ -16,6 +16,6 @@ urlpatterns = [
     path('like/<int:pk>/', AddLike.as_view(), name='add_like'),
     path('dislike/<int:pk>/', AddDislike.as_view(), name='add_dislike'),
     #vista temporal
-  
+    path("crear-categorias/", crear_categorias),
     
 ]

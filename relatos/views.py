@@ -154,3 +154,12 @@ class AddDislike(LoginRequiredMixin, View):
     
     
 
+from django.http import HttpResponse
+from .models import Categoria
+
+def crear_categorias(request):
+    categorias = ["Terror", "Drama", "Fantasía", "Cuento corto"]
+    for c in categorias:
+        Categoria.objects.get_or_create(nombre=c)
+
+    return HttpResponse("Categorías creadas correctamente.")
