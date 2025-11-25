@@ -153,13 +153,4 @@ class AddDislike(LoginRequiredMixin, View):
         return HttpResponseRedirect(next_url)
     
     
-#vista temporal
-from django.http import HttpResponse
-from .models import Categoria
 
-def crear_categorias(request):
-    categorias = ["Relatos Tradicionales", "Leyendas", "Relatos Orales", "Crónicas corto", "Relatos Contemporáneos", "Poesía"]
-    for c in categorias:
-        Categoria.objects.get_or_create(nombre=c)
-
-    return HttpResponse("Categorías creadas correctamente.")
