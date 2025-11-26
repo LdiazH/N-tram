@@ -157,9 +157,13 @@ class AddDislike(LoginRequiredMixin, View):
 from django.http import HttpResponse
 from .models import Categoria
 
-def crear_categorias(request):
-    categorias = ["Terror", "Drama", "Fantasía", "Cuento corto"]
-    for c in categorias:
-        Categoria.objects.get_or_create(nombre=c)
+def resetear_categorias(request):
+    # 1. Eliminar todas las categorías
+    Categoria.objects.all().delete()
 
-    return HttpResponse("Categorías creadas correctamente.")
+    # 2. Crear nuevas categorías
+    nuevas = ["Memoria Ancestral", "Historia Mapuche", "Identidad y Cultura", "Resistencia y Pueblo"]
+    for nombre in nuevas:
+        Categoria.objects.create(nombre=nombre)
+
+    return HttpResponse("Categorías actualizadas correctamente.")
