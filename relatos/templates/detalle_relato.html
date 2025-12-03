@@ -60,19 +60,31 @@
   <hr>
   <h5>Comentarios</h5>
   {% for comentario in relato.comentarios.all %}
-  <div class="border p-2 rounded mb-2">
-    <strong>{{ comentario.autor.username }}</strong>:
-    <p>{{ comentario.contenido }}</p>
-  </div>
-  {% empty %}
-  <p>No hay comentarios aún.</p>
-  {% endfor %}
-  <form method="post" novalidate>
-    {% csrf_token %}
-    {{ comentario_form.as_p }}
-    <button type="submit" class="btn btn-primary">Enviar</button>
-  </form>
-  <hr>
-</div>
+    <div class="card my-2">
+        <div class="card-body">
+
+            <p>{{ comentario.contenido }}</p>
+            <small class="text-muted">Por {{ comentario.autor }}</small>
+
+            {% if request.user == comentario.autor %}
+                <button class="btn btn-sm btn-warning mt-2" 
+                        data-bs-toggle="collapse" 
+                        data-bs-target="#edit{{ comentario.id }}">
+                    Editar
+                </button>
+
+                <!-- Formulario de edición colapsable -->
+                <div class="collapse mt-2" id="edit{{ comentario.id }}">
+                    <form method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="comentario_id" value="{{ comentario.id }}">
+                        <textarea name="contenido_editado" class="form-control" required>{{ comentario.contenido }}</textarea>
+                        <button class="btn btn-primary btn-sm mt-2">Guardar cambios</button>
+                    </form>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endfor %}
 
 {% endblock %}

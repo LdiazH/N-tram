@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views import View 
 from django.views.generic import ListView, CreateView, DetailView, TemplateView, DeleteView, UpdateView
@@ -10,7 +10,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 
 
 #importacion del modelo Relato y categoria
-from .models import Relato, Categoria
+from .models import Relato, Categoria, Comentario
 
 # Create your views here.
 
@@ -75,6 +75,18 @@ class RelatoDetailView(DetailView):
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()   # Relato actual
+        if "comentario_id" in request.POST:
+            comentario = get_object_or_404(Comentario, id=request.POST["comentario_id"])
+
+            if comentario.autor != request.user:
+                return HttpResponse("No puedes editar este comentario.", status=403)
+
+            comentario.contenido = request.POST.get("contenido_editado")
+            comentario.save()
+
+            return redirect("detalle_relato", pk=self.object.pk)
+
+    
         form = ComentarioForm(request.POST)
 
         if form.is_valid():
@@ -82,9 +94,8 @@ class RelatoDetailView(DetailView):
             comentario.autor = request.user
             comentario.relato = self.object
             comentario.save()
-            return redirect("detalle_relato", pk=self.object.pk)  
+            return redirect("detalle_relato", pk=self.object.pk)
 
-        # Si el form es inválido, re-renderizamos con errores
         context = self.get_context_data()
         context["comentario_form"] = form
         return self.render_to_response(context)
@@ -152,8 +163,8 @@ class AddDislike(LoginRequiredMixin, View):
         next_url = request.POST.get('next', '/')
         return HttpResponseRedirect(next_url)
     
-    
-
+"""   
+## para agregar categorias desde una vista
 from django.http import HttpResponse
 from .models import Categoria
 
@@ -167,3 +178,5 @@ def resetear_categorias(request):
         Categoria.objects.create(nombre=nombre)
 
     return HttpResponse("Categorías actualizadas correctamente.")
+
+""" 
